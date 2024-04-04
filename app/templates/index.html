@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>resource</title>
+</head>
+<style>
+  .resource-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .resource-info {
+    flex-grow: 1;
+  }
+
+  .delete-form {
+    margin-left: 10px;
+  }
+</style>
+<body>
+  <h1>Registration</h1>
+  <form action="/add" method="post">
+    <input type="text" name="title" placeholder="title">
+    <input type="text" name="url" placeholder="url">
+    <input type="text" name="tag" placeholder="tag">
+    <input type="submit" value="Submit">
+  </form>
+  <h1>List</h1>
+
+  <div class="search">
+    <form>
+      <input type="text" name="search">
+      <input type="submit" value="Search">
+    </form>
+  </div>
+  {% for resource in resources %}
+  <div class="resource-container">
+    <div class="resource-info">
+      <p>#{{resource.tag}} <a href="{{resource.url}}"> {{resource.title}}</a>
+      ({{resource.date}})</p>
+    </div>
+    <div class="delete-form">
+      <form action="/delete" method="post">
+        <input type="hidden" name="resource_id" value="{{ resource.id }}">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+
+</body>
+</html>
